@@ -41,7 +41,7 @@ namespace FruitTrade.UnitTests
             var mockService = new Mock<ITradeService>();
             mockService
                 .Setup(serv => serv.GetTradesByCountry(country))
-                .Returns(GetTestTrades().Where(x => x.Country == country).ToList());
+                .Returns(GetTestTrades().Where(x => x.Country.ToUpper() == country.ToUpper()).ToList());
 
             var controller = new TradeController(mockService.Object);
 
@@ -50,7 +50,7 @@ namespace FruitTrade.UnitTests
 
             //Assert
             var result = actionResult.Value as IEnumerable<TradeModel>;
-            int correctCount = GetTestTrades().Where(x => x.Country == country).ToList().Count;
+            int correctCount = GetTestTrades().Where(x => x.Country.ToUpper() == country.ToUpper()).ToList().Count;
             Assert.Equal(correctCount, result.Count());
         }
 
@@ -62,7 +62,7 @@ namespace FruitTrade.UnitTests
             var mockService = new Mock<ITradeService>();
             mockService
                 .Setup(serv => serv.GetTradesByCommodity(commodity))
-                .Returns(GetTestTrades().Where(x => x.Commodity == commodity).ToList());
+                .Returns(GetTestTrades().Where(x => x.Commodity.ToUpper() == commodity.ToUpper()).ToList());
 
             var controller = new TradeController(mockService.Object);
 
@@ -71,7 +71,7 @@ namespace FruitTrade.UnitTests
 
             //Assert
             var result = actionResult.Value as IEnumerable<TradeModel>;
-            int correctCount = GetTestTrades().Where(x => x.Commodity == commodity).ToList().Count;
+            int correctCount = GetTestTrades().Where(x => x.Commodity.ToUpper() == commodity.ToUpper()).ToList().Count;
             Assert.Equal(correctCount, result.Count());
         }
 
@@ -87,7 +87,7 @@ namespace FruitTrade.UnitTests
             var data = GetTestTrades();
             var dataFiltered = data
             .Where(x =>
-                x.Commodity == commodity &&
+                x.Commodity.ToUpper() == commodity.ToUpper() &&
                 (price <= 0 || x.Variable_Cost == price))
             .ToList();
 

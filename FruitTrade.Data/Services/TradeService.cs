@@ -22,7 +22,7 @@ namespace FruitTrade.Data.Services
 
             var dataFiltered = data
                 .Where(x =>
-                    x.Commodity == commodity &&
+                    x.Commodity.ToUpper() == commodity.ToUpper() &&
                     (price <= 0 || x.Variable_Cost == price))
                 .ToList();
 
@@ -49,7 +49,7 @@ namespace FruitTrade.Data.Services
             var data = GetDataFromFile();
 
             var result = data
-                .Where(x => x.Commodity == commodity)
+                .Where(x => x.Commodity.ToUpper() == commodity.ToUpper())
                 .ToList();
 
             return result;
@@ -60,7 +60,7 @@ namespace FruitTrade.Data.Services
             var data = GetDataFromFile();
 
             var result = data
-                .Where(x => x.Country == country)
+                .Where(x => x.Country.ToUpper() == country.ToUpper())
                 .ToList();
 
             return result;

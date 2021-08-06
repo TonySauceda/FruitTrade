@@ -27,7 +27,7 @@ namespace FruitTrade.WebApi.Controllers
             return Ok(allTrades);
         }
 
-        [HttpGet("GetByCountry/{country}")]
+        [HttpGet("Country/{country}")]
         public IActionResult GetByCountry(string country)
         {
             var allTrades = _tradeService.GetTradesByCountry(country);
@@ -35,7 +35,7 @@ namespace FruitTrade.WebApi.Controllers
             return Ok(allTrades);
         }
 
-        [HttpGet("GetByCommodity/{commodity}")]
+        [HttpGet("Commodity/{commodity}")]
         public IActionResult GetByCommodity(string commodity)
         {
             var allTrades = _tradeService.GetTradesByCommodity(commodity);
