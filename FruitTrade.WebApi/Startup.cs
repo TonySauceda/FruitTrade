@@ -18,6 +18,7 @@ namespace FruitTrade.WebApi
 {
     public class Startup
     {
+        private readonly string CorsGetPolicy = "_OnlyGETPolicy";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -40,6 +41,17 @@ namespace FruitTrade.WebApi
             services.AddSingleton(fileSettings);
 
             services.AddSingleton<ITradeService, TradeService>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(CorsGetPolicy, builder =>
+                {
+                    builder
+                        .AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .WithMethods("GET");
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +67,8 @@ namespace FruitTrade.WebApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(CorsGetPolicy);
 
             app.UseAuthorization();
 
